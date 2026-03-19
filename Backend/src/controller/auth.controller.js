@@ -97,7 +97,7 @@ const LoginUser = async(req,res)=>{
 
     const options={
         httpOnly:true,
-        secure:true 
+        secure: process.env.NODE_ENV === "production" 
     }
 
     return res.status(200).cookie("accessToken",accessToken,options).cookie("refreshToken",refreshToken,options).json({user:Loginuser,accessToken},"user logged in successfully")
@@ -105,4 +105,32 @@ const LoginUser = async(req,res)=>{
 }
 
 
-export { RegisterUser, LoginUser }
+const LogoutUser= async(req,res)=>{
+
+    await User.findByIdAndUpdate(req.user._id,
+        
+    {
+       $unset:{ refreshToken: 1 }
+    },
+    {
+        new:true
+    },
+
+   
+)
+
+ const options={
+        httpOnly:true ,
+     secure: process.env.NODE_ENV === "production" 
+    }
+
+    return res
+        .status(200)
+        .clearCookie("accessToken",options)
+        .clearCookie("refreshToken",options)
+        .json({message:"user logged out successfully"})
+
+}
+
+
+export { RegisterUser, LoginUser,LogoutUser}
