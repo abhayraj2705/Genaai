@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 const connection_db = async ()=>{
 
 try {
-    
-    const connection = await mongoose.connect(`${process.env.MONGO_URI}/${process.env.DB_NAME}`)
+    const mongoUri = (process.env.MONGO_URI || "").replace(/\/+$/, "")
+    const dbName = (process.env.DB_NAME || "").replace(/^\/+/, "")
+
+    const connection = await mongoose.connect(mongoUri, { dbName })
 
     console.log(`the db is connected to the ${connection.connection.host}`)
 } catch (error) {
