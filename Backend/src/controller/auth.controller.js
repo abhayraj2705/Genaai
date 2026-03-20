@@ -133,4 +133,24 @@ const LogoutUser= async(req,res)=>{
 }
 
 
-export { RegisterUser, LoginUser,LogoutUser}
+const getMeuser = async(req,res)=>{
+
+    const user= await User.findById(req.user.id)
+    
+    if(!user){
+
+        return res.status(200).json({message:"the user not found it is invaliid"})
+    }
+
+    return res.status(200).json({user:{
+        id:user._id,
+        username:user.username,
+        email:user.email
+    }},{message:"the user is valid"})
+
+
+
+}
+
+
+export { RegisterUser, LoginUser,LogoutUser,getMeuser}
