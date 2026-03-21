@@ -6,6 +6,7 @@ const authRouter= Router()
 
 
 authRouter.route("/Register").post(RegisterUser)
+authRouter.route("/register").post(RegisterUser)
 authRouter.route("/login").post(LoginUser)
 authRouter.route("/logout").post(VerifyJwt,LogoutUser)
 authRouter.route("/get_me").get(VerifyJwt,getMeuser)

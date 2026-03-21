@@ -1,6 +1,7 @@
 import app from "./src/app.js"
 import connection_db from "./src/db/db.connection.js"
 import dotenv from "dotenv"
+import  {invokegminiAI} from "./src/services/ai.service.js"
 
 
 dotenv.config({
@@ -10,8 +11,10 @@ dotenv.config({
 
 
 connection_db()
+invokegminiAI()
 
 // requires all the routes here 
+
 
 import authRouter from "./src/routes/user.routes.js"
 

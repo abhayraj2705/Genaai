@@ -16,30 +16,37 @@ export const useAuth = ()=>{
     const handelLogin =async({email, password})=>{
 
         setloading(true)
-
-       const data = await login({email,password})
-
-       setuser(data.user)
-       setloading(false)
+        try {
+            const data = await login({email,password})
+            setuser(data.user)
+            return data
+        } finally {
+            setloading(false)
+        }
     }
 
     const handelRegister =async ({username, email, password})=>{
 
         setloading(true)
-
-        const data = await register({username,email,password})
-
-        setuser(data.user)
-
-        setloading(false)
+        try {
+            const data = await register({username,email,password})
+            setuser(data.user)
+            return data
+        } finally {
+            setloading(false)
+        }
     }
 
 
     const handelLogout = async ()=>{
         setloading(true)
-        const data = await logout()
-        setuser(null)
-        setloading(false)
+        try {
+            const data = await logout()
+            setuser(null)
+            return data
+        } finally {
+            setloading(false)
+        }
 
     }
 

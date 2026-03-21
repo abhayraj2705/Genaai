@@ -15,9 +15,14 @@ export const Authprovider = ({ children })=>{
     useEffect(() => {
      
         const getAndSetuser = async()=>{
-            const data = await getme()
-            setuser(data.user)
-            setloading(false)
+            try {
+                const data = await getme()
+                setuser(data.user)
+            } catch (error) {
+                setuser(null)
+            } finally {
+                setloading(false)
+            }
         }
 
         getAndSetuser()
